@@ -137,8 +137,13 @@ init([Module, Configurations]) ->
 					Family = proplists:get_value(family, NewConfig),
 					Hostname = proplists:get_value(domain, NewConfig),
 					Protocol = proplists:get_value(protocol, NewConfig),
+					Certfile = proplists:get_value(certfile, NewConfig),
+					Keyfile = proplists:get_value(keyfile,NewConfig),
 					SessionOptions = proplists:get_value(sessionoptions, NewConfig, []),
-					ListenOptions = [binary, {ip, IP}, Family],
+					ListenOptions = case Protocol of 
+						ssl when is_list(Certfile),is_list(Keyfile) -> [binary, {ip, IP}, Family, Certfile,Keyfile ];
+						_ -> [binary, {ip, IP}, Family]
+						end,
 					case socket:listen(Protocol, Port, ListenOptions) of
 						{ok, ListenSocket} -> %%Create first accepting process
 							error_logger:info_msg("~p listening on ~p:~p via ~p~n", [?MODULE, IP, Port, Protocol]),
