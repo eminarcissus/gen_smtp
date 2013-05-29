@@ -141,7 +141,7 @@ init([Module, Configurations]) ->
 					Keyfile = proplists:get_value(keyfile,NewConfig),
 					SessionOptions = proplists:get_value(sessionoptions, NewConfig, []),
 					ListenOptions = case Protocol of 
-						ssl when is_list(Certfile),is_list(Keyfile) -> [binary, {ip, IP}, Family, Certfile,Keyfile ];
+						ssl when is_list(Certfile),is_list(Keyfile) -> [binary, {ip, IP}, Family, {certfile,Certfile},{keyfile,Keyfile} ];
 						_ -> [binary, {ip, IP}, Family]
 						end,
 					case socket:listen(Protocol, Port, ListenOptions) of

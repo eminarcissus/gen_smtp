@@ -21,6 +21,7 @@
 
 %% @doc Facilitates transparent gen_tcp/ssl socket handling
 -module(socket).
+-define(D(X), io:format("DEBUG ~p:~p ~p~n",[?MODULE, ?LINE, X])).
 
 
 -define(TCP_LISTEN_OPTIONS,[  {active, false},
@@ -101,6 +102,8 @@ listen(ssl, Port, Options) ->
 	application:start(crypto),
 	application:start(public_key),
 	application:start(ssl),
+	%?D([Options]),
+	%?D([ssl_listen_options(Options)]),
 	ssl:listen(Port, ssl_listen_options(Options));
 listen(tcp, Port, Options) ->
 	gen_tcp:listen(Port, tcp_listen_options(Options)).
