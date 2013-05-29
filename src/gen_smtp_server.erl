@@ -25,7 +25,7 @@
 
 -module(gen_smtp_server).
 -behaviour(gen_server).
-
+-define(D(X), io:format("DEBUG ~p:~p ~p~n",[?MODULE, ?LINE, ])).
 -define(PORT, 2525).
 
 %% External API

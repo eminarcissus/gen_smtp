@@ -36,6 +36,7 @@
 -define(MAXIMUMSIZE, 10485760). %10mb
 -define(BUILTIN_EXTENSIONS, [{"SIZE", "10485670"}, {"8BITMIME", true}, {"PIPELINING", true}]).
 -define(TIMEOUT, 180000). % 3 minutes
+-define(D(X), io:format("DEBUG ~p:~p ~p~n",[?MODULE, ?LINE, ])).
 
 %% External API
 -export([start_link/3, start/3]).
